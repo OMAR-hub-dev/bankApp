@@ -82,6 +82,44 @@ public class BankingAppGui extends BaseFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new BankingAppDialog(this, user).setVisible(true);
+        String buttonPressed = e.getActionCommand();
+
+        // user pressed logout
+        if(buttonPressed.equalsIgnoreCase("Logout")) {
+            // return user to the login gui
+            new LoginGui().setVisible(true);
+
+            // dispose of this gui
+            this.dispose();
+
+            // don't bother running the rest of the code
+            return;
+        }
+        // other functions
+        BankingAppDialog bankingAppDialog = new BankingAppDialog(this, user);
+
+        // set the title of the dialog header to the action
+        bankingAppDialog.setTitle(buttonPressed);
+
+        // if the button pressed is deposit, withdraw, or transfer
+        if(buttonPressed.equalsIgnoreCase("Deposit") || buttonPressed.equalsIgnoreCase("Withdraw")
+                || buttonPressed.equalsIgnoreCase("Transfer")){
+            // add in the current balance and amount gui components to the dialog
+            bankingAppDialog.addCurrentBalanceAndAmount();
+
+            // add action button
+            bankingAppDialog.addActionButton(buttonPressed);
+
+            // for the transfer action it will require more components
+            if(buttonPressed.equalsIgnoreCase("Transfer")){
+                bankingAppDialog.addUserField();
+            }
+
+        }else if(buttonPressed.equalsIgnoreCase("Past Transaction")){
+            bankingAppDialog.addPastTransactionComponents();
+        }
+
+        // make the app dialog visible
+        bankingAppDialog.setVisible(true);
     }
 }
