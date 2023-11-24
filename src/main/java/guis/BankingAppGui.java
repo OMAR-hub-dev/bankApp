@@ -4,8 +4,10 @@ import db_objs.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BankingAppGui extends BaseFrame{
+public class BankingAppGui extends BaseFrame implements ActionListener {
     private JTextField currentBalanceField;
     public JTextField getCurrentBalanceField(){return currentBalanceField;}
     public BankingAppGui(User user) {
@@ -44,33 +46,42 @@ public class BankingAppGui extends BaseFrame{
         JButton depositeButton = new JButton("Deposit");
         depositeButton.setBounds(15,180,getWidth()-50,50);
         depositeButton.setFont(new Font("Dialog",Font.BOLD, 22));
-        depositeButton.setHorizontalAlignment(SwingConstants.CENTER);
+        depositeButton.addActionListener(this);
         add(depositeButton);
 
 //        withDraw button
         JButton withdrawButton = new JButton("Withdraw");
         withdrawButton.setBounds(15,250,getWidth()-50,50);
         withdrawButton.setFont(new Font("Dialog",Font.BOLD, 22));
+        withdrawButton.addActionListener(this);
         add(withdrawButton);
 
 //        past transaction button
         JButton pasttransactionButton = new JButton("past Transaction");
         pasttransactionButton.setBounds(15,320,getWidth()-50,50);
         pasttransactionButton.setFont(new Font("Dialog",Font.BOLD, 22));
+        pasttransactionButton.addActionListener(this);
         add(pasttransactionButton);
 
 //        transfert button
         JButton transfertButton = new JButton("Transfer");
         transfertButton.setBounds(15,390,getWidth()-50,50);
         transfertButton.setFont(new Font("Dialog",Font.BOLD, 22));
+        transfertButton.addActionListener(this);
         add(transfertButton);
 
 //        logout button
         JButton logoutButton = new JButton("Logout");
         logoutButton.setBounds(15,500,getWidth()-50,50);
         logoutButton.setFont(new Font("Dialog",Font.BOLD, 22));
+        logoutButton.addActionListener(this);
         add(logoutButton);
 
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new BankingAppDialog(this, user).setVisible(true);
     }
 }
